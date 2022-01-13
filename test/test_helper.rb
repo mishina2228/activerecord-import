@@ -51,7 +51,12 @@ ActiveRecord::Base.logger = Logger.new("log/test.log")
 ActiveRecord::Base.logger.level = Logger::DEBUG
 
 if ENV['AR_VERSION'].to_f >= 6.0
-  yaml_config = YAML.load_file(test_dir.join("database.yml"))[adapter]
+  yaml_config = if RUBY_VERSION.to_f >= 3.1
+                  YAML.safe_load_file(test_dir.join("database.yml"), aliases: true)[adapter]
+                else
+                  YAML.load_file(test_dir.join("database.yml"))[adapter]
+                end
+
   config = ActiveRecord::DatabaseConfigurations::HashConfig.new("test", adapter, yaml_config)
   ActiveRecord::Base.configurations.configurations << config
 else

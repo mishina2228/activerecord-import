@@ -103,6 +103,6 @@ jobs:
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: 2.7
-          bundle-cache: true
+          bundler-cache: true
       - name: Run Rubocop
         run: bundle exec rubocop

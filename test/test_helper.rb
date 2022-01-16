@@ -51,7 +51,7 @@ ActiveRecord::Base.logger = Logger.new("log/test.log")
 ActiveRecord::Base.logger.level = Logger::DEBUG
 
 if ENV['AR_VERSION'].to_f >= 6.0
-  yaml_config = if Gem::Version.new(Psych::VERSION) >= Gem::Version.new('3.1.0')
+  yaml_config = if Gem::Version.new(Psych::VERSION) >= Gem::Version.new('3.2.1')
     YAML.safe_load_file(test_dir.join("database.yml"), aliases: true)[adapter]
   else
     YAML.load_file(test_dir.join("database.yml"))[adapter]

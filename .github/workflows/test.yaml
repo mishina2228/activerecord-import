@@ -96,10 +96,13 @@ jobs:
           bundle exec rake test:sqlite3
   lint:
     runs-on: ubuntu-latest
+    env:
+      AR_VERSION: '7.0'
     steps:
       - uses: actions/checkout@v2
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: 2.7
+          bundle-cache: true
       - name: Run Rubocop
         run: bundle exec rubocop
